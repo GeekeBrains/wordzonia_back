@@ -1,0 +1,68 @@
+{
+  "name": "wordzonia",
+  "version": "1.0.0",
+  "author": "Jesus A. Carballo Santaclara <jesus@portomaior.com>",
+  "license": "MIT",
+  "repository": {
+    "type": "git"
+  },
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "engines": {
+    "node": ">=10.16"
+  },
+
+  "files": [
+    "README.md",
+    "dist",
+    "src",
+    "!*/__tests__"
+  ],
+  "dependencies": {
+    "@loopback/boot": "^3.1.1",
+    "@loopback/core": "^2.13.0",
+    "@loopback/repository": "^3.2.1",
+    "@loopback/rest": "^9.1.0",
+    "@loopback/rest-explorer": "^3.0.4",
+    "@loopback/service-proxy": "^3.0.4",
+    "just-camel-case": "^4.0.2",
+    "just-clone": "^3.1.0",
+    "just-pluralize": "0.0.3",
+    "just-safe-set": "^2.1.0",
+    "loopback-connector-mongodb": "^5.2.3",
+    "promise-map-limit": "^1.0.0",
+    "tslib": "^2.0.0"
+  },
+  "devDependencies": {
+    "@loopback/build": "^6.2.6",
+    "@loopback/eslint-config": "^10.0.2",
+    "@loopback/testlab": "^3.2.8",
+    "@types/node": "^10.17.44",
+    "eslint": "^7.12.1",
+    "source-map-support": "^0.5.19",
+    "typescript": "~4.0.5"
+  },
+    "scripts": {
+    "build": "lb-tsc",
+    "build:watch": "lb-tsc --watch",
+    "lint": "yarn run prettier:check && yarn run eslint",
+    "lint:fix": "yarn run eslint:fix && yarn run prettier:fix",
+    "prettier:cli": "lb-prettier \"**/*.ts\" \"**/*.js\"",
+    "prettier:check": "yarn run prettier:cli -l",
+    "prettier:fix": "yarn run prettier:cli --write",
+    "eslint": "lb-eslint --report-unused-disable-directives .",
+    "eslint:fix": "yarn run eslint --fix",
+    "pretest": "yarn run clean && yarn run build",
+    "test": "lb-mocha --allow-console-logs \"dist/__tests__\"",
+    "posttest": "yarn run lint",
+    "test:dev": "lb-mocha --allow-console-logs dist/__tests__/**/*.js && yarn run posttest",
+    "docker:build": "docker build -t coinscrap-split-service .",
+    "docker:run": "docker run -p 3000:3000 -d coinscrap-split-service",
+    "migrate": "node ./dist/migrate",
+    "openapi-spec": "node ./dist/openapi-spec",
+    "prestart": "yarn run build",
+    "start": "node -r source-map-support/register .",
+    "clean": "lb-clean dist *.tsbuildinfo .eslintcache"
+  }
+
+}
