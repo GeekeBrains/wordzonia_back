@@ -7,10 +7,19 @@ import {juggler} from '@loopback/repository';
 //     "name": "loopback-test",
 //     "url": "mongodb://adminUser:pwd@cluster0-shard-00-00-xxx.mongodb.net:27017,cluster0-shard-00-01-xxx.mongodb.net:27017,cluster0-shard-00-02-xxx.mongodb.net:27017/test?ssl=true&replicaSet=Cluster0-shard-0&authSource=admin"
 // }
+// const clientEnv = Object.entries(process.env)
+//   .filter(([key]) => key.startsWith('CLIENT_ENV_'))
+//   .reduce((obj, [key, value]) => ({ ...obj, [key]: value.trim() }), {});
+// try {
+const clientEnv: [string, string | undefined][] = Object.entries(process.env);
+console.log('Enviroment', clientEnv);
 const config = {
   name: 'wordzonia',
   connector: 'mongodb',
-  url: 'mongodb+srv://wordzonia:uMfvf5Vj52ZtGcfg@cluster0.vy6cw.mongodb.net/test?authSource=admin&replicaSet=atlas-8h75a4-shard-0&readPreference=primary&appname=MongoDB%20Compass%20Community&ssl=true',
+  // url: clientEnv['WORDZONIA_MONGO_URL'],
+  url:
+    'mongodb+srv://wordzonia:uMfvf5Vj52ZtGcfg@cluster0.vy6cw.mongodb.net/test?authSource=admin&replicaSet=atlas-8h75a4-shard-0&readPreference=primary&appname=MongoDB%20Compass%20Community&ssl=true',
+
   // host: '@cluster0.vy6cw.mongodb.net/',
   // port: 0,
   // user: 'wordzonia',
@@ -26,7 +35,8 @@ const config = {
 // gracefully. The `stop()` method is inherited from `juggler.DataSource`.
 // Learn more at https://loopback.io/doc/en/lb4/Life-cycle.html
 @lifeCycleObserver('datasource')
-export class WordzoniaDataSource extends juggler.DataSource
+export class WordzoniaDataSource
+  extends juggler.DataSource
   implements LifeCycleObserver {
   static dataSourceName = 'wordzonia';
   static readonly defaultConfig = config;

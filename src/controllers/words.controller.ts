@@ -7,13 +7,13 @@ import {
   Where,
 } from '@loopback/repository';
 import {
-  post,
-  param,
+  del,
   get,
   getModelSchemaRef,
+  param,
   patch,
+  post,
   put,
-  del,
   requestBody,
 } from '@loopback/rest';
 import {Word} from '../models';
@@ -22,7 +22,7 @@ import {WordRepository} from '../repositories';
 export class WordsController {
   constructor(
     @repository(WordRepository)
-    public wordRepository : WordRepository,
+    public wordRepository: WordRepository,
   ) {}
 
   @post('/words', {
@@ -39,7 +39,6 @@ export class WordsController {
         'application/json': {
           schema: getModelSchemaRef(Word, {
             title: 'NewWord',
-            
           }),
         },
       },
@@ -57,9 +56,7 @@ export class WordsController {
       },
     },
   })
-  async count(
-    @param.where(Word) where?: Where<Word>,
-  ): Promise<Count> {
+  async count(@param.where(Word) where?: Where<Word>): Promise<Count> {
     return this.wordRepository.count(where);
   }
 
@@ -78,9 +75,7 @@ export class WordsController {
       },
     },
   })
-  async find(
-    @param.filter(Word) filter?: Filter<Word>,
-  ): Promise<Word[]> {
+  async find(@param.filter(Word) filter?: Filter<Word>): Promise<Word[]> {
     return this.wordRepository.find(filter);
   }
 
@@ -120,7 +115,7 @@ export class WordsController {
   })
   async findById(
     @param.path.string('id') id: string,
-    @param.filter(Word, {exclude: 'where'}) filter?: FilterExcludingWhere<Word>
+    @param.filter(Word, {exclude: 'where'}) filter?: FilterExcludingWhere<Word>,
   ): Promise<Word> {
     return this.wordRepository.findById(id, filter);
   }
@@ -169,5 +164,16 @@ export class WordsController {
   })
   async deleteById(@param.path.string('id') id: string): Promise<void> {
     await this.wordRepository.deleteById(id);
+  }
+
+  @del('/wordsDeleteAll', {
+    responses: {
+      '204': {
+        description: 'Word DELETE ALL success',
+      },
+    },
+  })
+  async deleteAll(): Promise<void> {
+    await this.wordRepository.deleteAll();
   }
 }
