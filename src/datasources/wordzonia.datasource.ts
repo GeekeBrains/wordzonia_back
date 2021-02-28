@@ -11,8 +11,8 @@ import {juggler} from '@loopback/repository';
 //   .filter(([key]) => key.startsWith('CLIENT_ENV_'))
 //   .reduce((obj, [key, value]) => ({ ...obj, [key]: value.trim() }), {});
 // try {
-const clientEnv: [string, string | undefined][] = Object.entries(process.env);
-console.log('Enviroment', clientEnv);
+// const clientEnv: [string, string | undefined][] = Object.entries(process.env);
+// console.log('Enviroment', clientEnv);
 const config = {
   name: 'wordzonia',
   connector: 'mongodb',

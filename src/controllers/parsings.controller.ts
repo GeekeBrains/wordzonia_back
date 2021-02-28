@@ -1,3 +1,4 @@
+import {service} from '@loopback/core';
 import {
   Count,
   CountSchema,
@@ -7,22 +8,27 @@ import {
   Where,
 } from '@loopback/repository';
 import {
-  post,
-  param,
+  del,
   get,
   getModelSchemaRef,
+  param,
   patch,
+  post,
   put,
-  del,
   requestBody,
 } from '@loopback/rest';
 import {Parsing} from '../models';
 import {ParsingRepository} from '../repositories';
+import {ParsingService, WordService} from '../services';
 
 export class ParsingsController {
   constructor(
     @repository(ParsingRepository)
-    public parsingRepository : ParsingRepository,
+    public parsingRepository: ParsingRepository,
+    @service(WordService)
+    private wordService: WordService,
+    @service(ParsingService)
+    private parsingService: ParsingService,
   ) {}
 
   @post('/parsings', {
@@ -57,9 +63,7 @@ export class ParsingsController {
       },
     },
   })
-  async count(
-    @param.where(Parsing) where?: Where<Parsing>,
-  ): Promise<Count> {
+  async count(@param.where(Parsing) where?: Where<Parsing>): Promise<Count> {
     return this.parsingRepository.count(where);
   }
 
@@ -120,7 +124,8 @@ export class ParsingsController {
   })
   async findById(
     @param.path.number('id') id: number,
-    @param.filter(Parsing, {exclude: 'where'}) filter?: FilterExcludingWhere<Parsing>
+    @param.filter(Parsing, {exclude: 'where'})
+    filter?: FilterExcludingWhere<Parsing>,
   ): Promise<Parsing> {
     return this.parsingRepository.findById(id, filter);
   }
@@ -169,5 +174,25 @@ export class ParsingsController {
   })
   async deleteById(@param.path.number('id') id: number): Promise<void> {
     await this.parsingRepository.deleteById(id);
+  }
+
+  @get('/test', {
+    responses: {
+      '200': {
+        description: 'Parsing model instance',
+        content: {
+          'application/json': {
+            schema: getModelSchemaRef(Parsing, {includeRelations: true}),
+          },
+        },
+      },
+    },
+  })
+  async test(): Promise<Object> {
+    return {
+      resp: await this.parsingService.parse(
+        'The angry bear chased the frightened little squirrel.',
+      ),
+    };
   }
 }

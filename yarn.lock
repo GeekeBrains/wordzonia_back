@@ -1039,6 +1039,11 @@
   "resolved" "https://registry.npmjs.org/async/-/async-3.2.0.tgz"
   "version" "3.2.0"
 
+"async@~0.2.9":
+  "integrity" "sha1-trvgsGdLnXGXCMo43owjfLUmw9E="
+  "resolved" "https://registry.npmjs.org/async/-/async-0.2.10.tgz"
+  "version" "0.2.10"
+
 "async@0.9.x":
   "integrity" "sha1-rqdNXmHB+JlhO/ZL2mbUx48v0X0="
   "resolved" "https://registry.npmjs.org/async/-/async-0.9.2.tgz"
@@ -1449,6 +1454,11 @@
   "version" "1.0.8"
   dependencies:
     "delayed-stream" "~1.0.0"
+
+"commander@^2.20.3":
+  "integrity" "sha512-GpVkmM8vF2vQUkj2LvZmD35JxeJOLCwJ9cUkugyk2nuhbv3+mJvpLYYt+0+USMxE+oj+ey/lJEnhZw75x/OMcQ=="
+  "resolved" "https://registry.npmjs.org/commander/-/commander-2.20.3.tgz"
+  "version" "2.20.3"
 
 "commander@^5.0.0":
   "integrity" "sha512-P0CysNDQ7rtVw4QIQtm+MRxV66vKFSvlsQvGYXZWR3qFU0jlMKHZZZgw8e+8DSah4UDKMqnknRDQz+xuQXQ/Zg=="
@@ -4721,7 +4731,7 @@
   "resolved" "https://registry.npmjs.org/uglify-to-browserify/-/uglify-to-browserify-1.0.2.tgz"
   "version" "1.0.2"
 
-"underscore@^1.9.1":
+"underscore@^1.9.1", "underscore@>=1.3.1":
   "integrity" "sha512-21rQzss/XPMjolTiIezSu3JAjgagXKROtNrYFEOWK109qY1Uv2tVjPTZ1ci2HgvQDA16gHYSthQIJfB+XId/rQ=="
   "resolved" "https://registry.npmjs.org/underscore/-/underscore-1.12.0.tgz"
   "version" "1.12.0"
@@ -4878,10 +4888,26 @@
   "resolved" "https://registry.npmjs.org/word-wrap/-/word-wrap-1.2.3.tgz"
   "version" "1.2.3"
 
-"wordnet-db@^3.1.11":
+"wordnet-db@^3.1.11", "wordnet-db@^3.1.14":
   "integrity" "sha512-zVyFsvE+mq9MCmwXUWHIcpfbrHHClZWZiVOzKSxNJruIcFn2RbY55zkhiAMMxM8zCVSmtNiViq8FsAZSFpMYag=="
   "resolved" "https://registry.npmjs.org/wordnet-db/-/wordnet-db-3.1.14.tgz"
   "version" "3.1.14"
+
+"wordnet@^0.1.2":
+  "integrity" "sha1-Vg5D0o0Op/ctf4H/qXsh4q7rOuU="
+  "resolved" "https://registry.npmjs.org/wordnet/-/wordnet-0.1.2.tgz"
+  "version" "0.1.2"
+  dependencies:
+    "async" "~0.2.9"
+
+"wordpos@^2.1.0":
+  "integrity" "sha512-0fGpg8Fv7vT8dFBw1fl3JX2ooqbtcWXUFUOzoD5O6CQ+0QIV9h+MC2N3zHmcD6+295OYzfXXxKSQJiim0nakJA=="
+  "resolved" "https://registry.npmjs.org/wordpos/-/wordpos-2.1.0.tgz"
+  "version" "2.1.0"
+  dependencies:
+    "commander" "^2.20.3"
+    "underscore" ">=1.3.1"
+    "wordnet-db" "^3.1.14"
 
 "wordwrap@0.0.2":
   "integrity" "sha1-t5Zpu0LstAn4PVg8rVLKF+qhZD8="

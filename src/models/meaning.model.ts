@@ -11,7 +11,7 @@ export class Meaning extends Entity {
 
   @property({
     type: 'string',
-  }
+  })
   spanishDef?: string;
 
   @property({
@@ -19,7 +19,6 @@ export class Meaning extends Entity {
     required: true,
   })
   count: number;
-
 
   constructor(data?: Partial<Meaning>) {
     super(data);

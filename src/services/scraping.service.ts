@@ -2,10 +2,10 @@ import {/* inject, */ BindingScope, injectable} from '@loopback/core';
 import {repository} from '@loopback/repository';
 import axios from 'axios';
 import textversionjs from 'textversionjs';
-import {Word} from '../models';
 import {WordRepository} from '../repositories';
 
 // Lorca LA CAÑA: https://github.com/dmarman/lorca
+// Para hacer resumenes    https://github.com/topliceanu/sum
 
 @injectable({scope: BindingScope.TRANSIENT})
 export class ScrapingService {
@@ -38,49 +38,6 @@ export class ScrapingService {
         return '';
       },
     });
-
-    const natural = require('natural');
-    // Existe varias posibilidad de tokenizar por idioma, etc..
-    const tokenizer = new natural.AggressiveTokenizer();
-    const tkns = tokenizer.tokenize(text);
-
-    console.log(tkns);
-    // const $ = cheerio.load(resp.data);
-    // const
-
-    tkns.map((tkn: string) => {
-      try {
-        // Is numeric?
-        if (isNaN(+tkn)) {
-          tkn = tkn.toLowerCase();
-          const wrd: Word = new Word({id: tkn});
-          // eslint-disable-next-line no-void
-          void this.wordRepository.create(wrd);
-        }
-      } catch (e) {
-        if (e.code !== 11000) {
-          console.log(e);
-        }
-      }
-      return false;
-    });
     return true;
-
-// natural.PorterStemmer.attach();
-// const sentence = 'A process for removing the commoner morphological and inflexional endings from words in English.';
-// sentence.tokenizeAndStem();
-// // ["process", "remov", "common", "morpholog", "inflexion", "end", "word", "english"]
-
-
-    // const $ = cheerio.load('<h2 class="title">Hello world</h2>');
-
-    // $('h2.title').text('Hello there!');
-    // $('h2').addClass('welcome');
-
-    // $.html();
   }
 }
-
-
-
-
